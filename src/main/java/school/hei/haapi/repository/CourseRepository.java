@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, String> {
-
     @Query(value = "select c from Course c " +
             "where " +
             "upper(c.teacher.firstName) like upper(:firstName) " +
@@ -20,6 +19,8 @@ public interface CourseRepository extends JpaRepository<Course, String> {
             "or upper(c.credits) = :credits " +
             "or upper(c.name) like upper(:name) ")
     List<Course> findAllCourseBy(
+            // overload this for nullish values
+
             Pageable pageable,
             @Param("firstName") String firstName,
             @Param("lastName") String lastName,
